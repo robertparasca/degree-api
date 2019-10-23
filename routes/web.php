@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/redirect', 'Api\AuthController@redirectToProvider');
+Route::get('/callback', 'Api\AuthController@handleProviderCallback');
