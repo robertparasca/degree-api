@@ -50,38 +50,41 @@ class AuthController extends Controller
         ]);
     }
 
-    public function redirectToProvider()
-    {
-        return Socialite::driver('google')->redirect();
+    public function createToken($user) {
+        $token = $user->createToken('auth_token')->accessToken;
+
+        return response([
+            'user' => $user,
+            'access_token' => $token
+        ]);
     }
 
-    public function handleProviderCallback()
+    public function handleProviderCallback(Request $request)
     {
-        try {
-            $user = Socialite::driver('google')->user();
-        } catch (\Exception $e) {
-            return response(['error' => $e]);
-        }
-        // only allow people with @company.com to login
-        if(explode("@", $user->email)[1] !== 'ac.tuiasi.ro'){
-            return response(['error' => 'Not a @ac.tuiasi.ro email']);
-        }
-        // check if they're an existing user
-        $existingUser = User::where('email', $user->email)->first();
-        if($existingUser){
-            // log them in
-            auth()->login($existingUser, true);
+        $user = $request->validate([
+            'email' => 'required|email',
+            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'google_id' => 'required',
+            'image_url' => 'required',
+        ]);
+        $existingUser = User::where('email', $user['email'])->first();
+
+        if ($existingUser) {
+            return $this->createToken($existingUser);
         } else {
-            // create a new user
             $newUser                  = new User;
-            $newUser->name            = $user->name;
-            $newUser->email           = $user->email;
-            $newUser->google_id       = $user->id;
-            $newUser->avatar          = $user->avatar;
-            $newUser->avatar_original = $user->avatar_original;
+            $newUser->email           = $user['email'];
+            $newUser->name            = $user['name'];
+            $newUser->first_name      = $user['first_name'];
+            $newUser->last_name       = $user['last_name'];
+            $newUser->google_id       = $user['google_id'];
+            $newUser->image_url       = $user['image_url'];
             $newUser->save();
-            auth()->login($newUser, true);
         }
-        return response(['message' => 'gj']);
+
+        $newUserResource = User::where('email', $user['email'])->first();
+        return $this->createToken($newUserResource);
     }
 }
