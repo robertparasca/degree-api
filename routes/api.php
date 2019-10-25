@@ -17,6 +17,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/me', function (Request $request) {
         return $request->user();
     });
+    Route::get('/tickets', 'Api\TicketController@index');
+    Route::post('/tickets', 'Api\TicketController@store');
 });
 
 Route::post('/register', 'Api\AuthController@register');
