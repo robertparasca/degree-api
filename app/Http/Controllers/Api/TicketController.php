@@ -10,7 +10,7 @@ class TicketController extends Controller
 {
     public function index()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::all()->where('user_id', auth()->user()->id);
         return response([
             'tickets' => $tickets
         ]);
