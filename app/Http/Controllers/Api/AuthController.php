@@ -9,6 +9,15 @@ use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
 {
+    public function createToken($user) {
+        $token = $user->createToken('auth_token')->accessToken;
+
+        return [
+            'user' => $user,
+            'access_token' => $token
+        ];
+    }
+
     public function register(Request $request)
     {
         $validatedData = $request->validate([
@@ -37,26 +46,12 @@ class AuthController extends Controller
         ]);
 
         if (!auth()->attempt($validatedData)) {
-            return response(['message' => 'Invalid credentials']);
+            return $this->response422(['message' => 'Invalid credentials']);
         }
 
         $user = auth()->user();
 
-        $token = $user->createToken('auth_token')->accessToken;
-
-        return response([
-            'user' => $user,
-            'access_token' => $token
-        ]);
-    }
-
-    public function createToken($user) {
-        $token = $user->createToken('auth_token')->accessToken;
-
-        return response([
-            'user' => $user,
-            'access_token' => $token
-        ]);
+        return $this->response200($this->createToken($user));
     }
 
     public function handleProviderCallback(Request $request)
@@ -72,7 +67,7 @@ class AuthController extends Controller
         $existingUser = User::where('email', $user['email'])->first();
 
         if ($existingUser) {
-            return $this->createToken($existingUser);
+            return $this->response200($this->createToken($user));
         } else {
             $newUser                  = new User;
             $newUser->email           = $user['email'];
@@ -85,6 +80,6 @@ class AuthController extends Controller
         }
 
         $newUserResource = User::where('email', $user['email'])->first();
-        return $this->createToken($newUserResource);
+        return $this->response200($this->createToken($newUserResource));
     }
 }

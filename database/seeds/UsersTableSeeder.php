@@ -3,10 +3,10 @@
 use App\User;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $master->email = 'parascarobert@gmail.com';
         $master->name = 'Master Account';
         $master->first_name = 'Account';
-        $master->last_name = 'Master';
+        $master->lasst_name = 'Master';
         $master->save();
     }
 }
