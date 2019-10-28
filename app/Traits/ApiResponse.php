@@ -14,4 +14,11 @@ trait ApiResponse {
             'errors' => $data
         ], 422);
     }
+
+    public function response401()
+    {
+        return response([
+            'errors' => 'Unauthenticated.'
+        ], 401);
+    }
 }

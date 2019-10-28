@@ -2,11 +2,15 @@
 
 namespace App\Exceptions;
 
+use App\Traits\ApiResponse;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
+    use ApiResponse;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -47,5 +51,10 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return $this->response401();
     }
 }
