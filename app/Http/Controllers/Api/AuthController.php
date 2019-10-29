@@ -67,7 +67,7 @@ class AuthController extends Controller
         $existingUser = User::where('email', $user['email'])->first();
 
         if ($existingUser) {
-            return $this->response200($this->createToken($user));
+            return $this->response200($this->createToken($existingUser));
         } else {
             $newUser                  = new User;
             $newUser->email           = $user['email'];

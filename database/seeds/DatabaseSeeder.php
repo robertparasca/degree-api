@@ -1,7 +1,9 @@
 <?php
 
+use App\Permission;
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,5 +21,16 @@ class DatabaseSeeder extends Seeder
         $master->first_name = 'Account';
         $master->last_name = 'Master';
         $master->save();
+
+        $ticketsMethods = ['index', 'store', 'update', 'delete', 'validate'];
+        foreach ($ticketsMethods as $index => $ticketsMethod) {
+            $ticketPermission = new Permission();
+            $ticketPermission->name = 'ticket_' . $ticketsMethod;
+            $ticketPermission->save();
+            DB::table('permission_user')->insert([
+                'user_id' => 1,
+                'permission_id' => $index + 1,
+            ]);
+        }
     }
 }
