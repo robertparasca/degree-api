@@ -21,4 +21,11 @@ trait ApiResponse {
             'errors' => 'Unauthenticated.'
         ], 401);
     }
+
+    public function response403()
+    {
+        return response([
+            'errors' => 'Forbidden.'
+        ], 403);
+    }
 }

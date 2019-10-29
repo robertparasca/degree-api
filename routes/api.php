@@ -19,7 +19,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('/tickets', 'Api\TicketController@store');
 
     Route::get('/permissions', 'Api\PermissionController@index');
-    Route::get('/user-permission', 'Api\UserController@userPermission');
 });
 
 Route::post('/register', 'Api\AuthController@register');

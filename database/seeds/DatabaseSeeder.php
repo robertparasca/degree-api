@@ -14,21 +14,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $master = new User();
-        $master->password = bcrypt('asd123');
-        $master->email = 'parascarobert@gmail.com';
-        $master->name = 'Master Account';
-        $master->first_name = 'Account';
-        $master->last_name = 'Master';
-        $master->save();
+//        $master = new User();
+//        $master->password = bcrypt('asd123');
+//        $master->email = 'parascarobert@gmail.com';
+//        $master->name = 'Master Account';
+//        $master->first_name = 'Account';
+//        $master->last_name = 'Master';
+//        $master->save();
 
         $ticketsMethods = ['index', 'store', 'update', 'delete', 'validate'];
         foreach ($ticketsMethods as $index => $ticketsMethod) {
-            $ticketPermission = new Permission();
-            $ticketPermission->name = 'ticket_' . $ticketsMethod;
-            $ticketPermission->save();
+//            $ticketPermission = new Permission();
+//            $ticketPermission->name = 'TicketController_' . $ticketsMethod;
+//            $ticketPermission->save();
+//            DB::table('permission_user')->insert([
+//                'user_id' => 1,
+//                'permission_id' => $index + 1,
+//            ]);
             DB::table('permission_user')->insert([
-                'user_id' => 1,
+                'user_id' => 2,
                 'permission_id' => $index + 1,
             ]);
         }

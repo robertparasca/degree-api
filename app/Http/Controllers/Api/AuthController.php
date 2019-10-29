@@ -64,7 +64,7 @@ class AuthController extends Controller
             'google_id' => 'required',
             'image_url' => 'required',
         ]);
-        $existingUser = User::where('email', $user['email'])->first();
+        $existingUser = User::where('email', $user['email'])->with('permissions')->first();
 
         if ($existingUser) {
             return $this->response200($this->createToken($existingUser));
@@ -77,6 +77,7 @@ class AuthController extends Controller
             $newUser->google_id       = $user['google_id'];
             $newUser->image_url       = $user['image_url'];
             $newUser->save();
+            // todo: somehow trigger the script (to be created) that adds the default permissions (also to be saved) to the $newUser
         }
 
         $newUserResource = User::where('email', $user['email'])->first();
