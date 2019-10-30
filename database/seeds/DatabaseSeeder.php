@@ -22,18 +22,29 @@ class DatabaseSeeder extends Seeder
 //        $master->last_name = 'Master';
 //        $master->save();
 
-        $ticketsMethods = ['index', 'store', 'update', 'delete', 'validate'];
-        foreach ($ticketsMethods as $index => $ticketsMethod) {
-//            $ticketPermission = new Permission();
-//            $ticketPermission->name = 'TicketController_' . $ticketsMethod;
-//            $ticketPermission->save();
+//        $ticketsMethods = ['index', 'store', 'update', 'delete', 'validate'];
+//        foreach ($ticketsMethods as $index => $ticketsMethod) {
+////            $ticketPermission = new Permission();
+////            $ticketPermission->name = 'TicketController_' . $ticketsMethod;
+////            $ticketPermission->save();
+////            DB::table('permission_user')->insert([
+////                'user_id' => 1,
+////                'permission_id' => $index + 1,
+////            ]);
 //            DB::table('permission_user')->insert([
-//                'user_id' => 1,
+//                'user_id' => 2,
 //                'permission_id' => $index + 1,
 //            ]);
+//        }
+
+        $usersMethods = ['me', 'index'];
+        foreach ($usersMethods as $index => $usersMethod) {
+//            $usersPermissions = new Permission();
+//            $usersPermissions->name = 'UserController_' . $usersMethod;
+//            $usersPermissions->save();
             DB::table('permission_user')->insert([
-                'user_id' => 2,
-                'permission_id' => $index + 1,
+                'user_id' => 1,
+                'permission_id' => 8 + $index,
             ]);
         }
     }

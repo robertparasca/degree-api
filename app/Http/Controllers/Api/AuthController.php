@@ -49,7 +49,7 @@ class AuthController extends Controller
             return $this->response422(['message' => 'Invalid credentials']);
         }
 
-        $user = auth()->user();
+        $user = User::where('id', $request->user()->id)->with('permissions')->first();
 
         return $this->response200($this->createToken($user));
     }
