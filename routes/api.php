@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/me', 'Api\UserController@me');
     Route::get('/users', 'Api\UserController@index');
+    Route::get('/users/{id}', 'Api\UserController@show');
+    Route::post('/users/{id}/edit-permissions', 'Api\UserController@updatePermissions');
 
     Route::get('/tickets', 'Api\TicketController@index');
     Route::post('/tickets', 'Api\TicketController@store');

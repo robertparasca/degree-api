@@ -22,29 +22,33 @@ class DatabaseSeeder extends Seeder
 //        $master->last_name = 'Master';
 //        $master->save();
 
-//        $ticketsMethods = ['index', 'store', 'update', 'delete', 'validate'];
+        $ticketsMethods = ['index', 'store', 'update', 'delete', 'validate'];
 //        foreach ($ticketsMethods as $index => $ticketsMethod) {
-////            $ticketPermission = new Permission();
-////            $ticketPermission->name = 'TicketController_' . $ticketsMethod;
-////            $ticketPermission->save();
-////            DB::table('permission_user')->insert([
-////                'user_id' => 1,
-////                'permission_id' => $index + 1,
-////            ]);
-//            DB::table('permission_user')->insert([
-//                'user_id' => 2,
-//                'permission_id' => $index + 1,
-//            ]);
+//            $ticketPermission = new Permission();
+//            $ticketPermission->name = 'TicketController_' . $ticketsMethod;
+//            $ticketPermission->save();
 //        }
 
-        $usersMethods = ['me', 'index'];
-        foreach ($usersMethods as $index => $usersMethod) {
+        $usersMethods = ['me', 'index', 'show', 'updatePermissions'];
+//        foreach ($usersMethods as $index => $usersMethod) {
 //            $usersPermissions = new Permission();
 //            $usersPermissions->name = 'UserController_' . $usersMethod;
 //            $usersPermissions->save();
+//        }
+
+        $permissionsMethods = ['index'];
+//        foreach ($permissionsMethods as $permissionsMethod) {
+//            $permissionsPermissions = new Permission();
+//            $permissionsPermissions->name = 'PermissionController_' . $permissionsMethod;
+//            $permissionsPermissions->save();
+//        }
+
+
+        $allMethods = array_merge($ticketsMethods, $usersMethods, $permissionsMethods);
+        foreach ($allMethods as $index => $method) {
             DB::table('permission_user')->insert([
-                'user_id' => 1,
-                'permission_id' => 8 + $index,
+                'user_id' => 2,
+                'permission_id' => $index + 1,
             ]);
         }
     }
