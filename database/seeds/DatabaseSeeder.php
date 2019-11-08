@@ -47,8 +47,8 @@ class DatabaseSeeder extends Seeder
         $allMethods = array_merge($ticketsMethods, $usersMethods, $permissionsMethods);
         foreach ($allMethods as $index => $method) {
             DB::table('permission_user')->insert([
-                'user_id' => 2,
-                'permission_id' => $index + 1,
+                'user_id' => 1,
+                'permission_id' => $index + 8,
             ]);
         }
     }

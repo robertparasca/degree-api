@@ -25,6 +25,8 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('/permissions', 'Api\PermissionController@index');
 });
 
+Route::get('/students/import', 'Api\StudentController@import');
+
 Route::post('/register', 'Api\AuthController@register');
 Route::post('/login-password', 'Api\AuthController@login');
 
