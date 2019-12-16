@@ -45,6 +45,18 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
+        /*
+         * search in users table if the email exists.
+         * if not, look in the students table for the email.
+         * what if the email exists in both tables?
+         * well, somehow, i should make sure that the email does not exists in both tables.
+         * Popescu Ion e student la IS.
+         * Dau import la excelul pentru anul 1. In excel, Popescu are contul de email popescu.ion@gmail.com
+         * Pentru ca e la IS, i se genereaza si contul de google. popescu.ion@ac.tuiasi.ro.
+         * Ce fac daca Popescu se conecteaza cu email-ul și parola din excel, dar și cu google-ul?
+         */
+//        dd($validatedData['email']);
+
         if (!auth()->attempt($validatedData)) {
             return $this->response422(['message' => 'Invalid credentials']);
         }

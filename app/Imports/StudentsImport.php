@@ -9,21 +9,73 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class StudentsImport implements WithHeadingRow, ToCollection
 {
-    public function headingRow(): int
+    public function  __construct($year)
     {
-        return 1;
+        $this->year = $year;
     }
+
+//    public function headingRow(): int
+//    {
+//        return 1;
+//    }
 
     public function collection(Collection $rows)
     {
-//        dd($rows);
         foreach ($rows as $row) {
-//            dd($row);
-            Student::create([
-                'name' => $row['nume'],
-                'email' => $row['email'],
-                'year' => $row['an']
-            ]);
+//            dd($row, $this->year);
+            if (
+                $row['grupa_i'] &&
+                $row['nrmatricol'] &&
+                $row['nume_si_prenume'] &&
+                $row['initiale_tata'] &&
+                $row['tara'] &&
+                $row['obsan_anterior'] &&
+                $row['taxa'] &&
+                $row['orfanfacii'] &&
+                $row['an_admitere'] &&
+                $row['an_inmatr'] &&
+                $row['domeniu_studii'] &&
+                $row['medie_adm'] &&
+                $row['contact_email']
+            ) {
+                $student = Student::where('contact_email', $row['contact_email']);
+                if (count($student->get())) {
+                    $student->update([
+                        'grupa_i' => $row['grupa_i'],
+                        'nr_matricol' => $row['nrmatricol'],
+                        'nume_si_prenume' => $row['nume_si_prenume'],
+                        'initiale_tata' => $row['initiale_tata'],
+                        'tara' => $row['tara'],
+                        'obsan_anterior' => $row['obsan_anterior'],
+                        'taxa' => $row['taxa'] == 'Nu' ? false : true,
+                        'orfanfacii' => $row['orfanfacii'] == 'Nu' ? false : true,
+                        'an_admitere' => intval($row['an_admitere']),
+                        'an_inmatr' => intval($row['an_inmatr']),
+                        'domeniu_studii' => $row['domeniu_studii'],
+                        'medie_adm' => floatval($row['medie_adm']),
+                        'contact_email' => $row['contact_email'],
+                        'an_curent' => intval($this->year)
+                    ]);
+                } else {
+                    Student::create([
+                        'grupa_i' => $row['grupa_i'],
+                        'nr_matricol' => $row['nrmatricol'],
+                        'nume_si_prenume' => $row['nume_si_prenume'],
+                        'initiale_tata' => $row['initiale_tata'],
+                        'tara' => $row['tara'],
+                        'obsan_anterior' => $row['obsan_anterior'],
+                        'taxa' => $row['taxa'] == 'Nu' ? false : true,
+                        'orfanfacii' => $row['orfanfacii'] == 'Nu' ? false : true,
+                        'an_admitere' => intval($row['an_admitere']),
+                        'an_inmatr' => intval($row['an_inmatr']),
+                        'domeniu_studii' => $row['domeniu_studii'],
+                        'medie_adm' => floatval($row['medie_adm']),
+                        'contact_email' => $row['contact_email'],
+                        'an_curent' => intval($this->year)
+                    ]);
+                }
+
+            }
         }
     }
 }
