@@ -29,6 +29,8 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::get('/institute', 'Api\InstituteController@index');
     Route::post('/institute', 'Api\InstituteController@update');
+
+    Route::get('/one-time-token', 'Api\AuthController@oneTimeToken');
 });
 
 Route::post('/login-password', 'Api\AuthController@login');

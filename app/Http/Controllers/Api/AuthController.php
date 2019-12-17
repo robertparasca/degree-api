@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OneTimeToken;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthController extends Controller
@@ -94,5 +96,10 @@ class AuthController extends Controller
 
         $newUserResource = User::where('email', $user['email'])->first();
         return $this->response200($this->createToken($newUserResource));
+    }
+
+    public function oneTimeToken(Request $request)
+    {
+        Mail::to($request->user())->send(new OneTimeToken());
     }
 }
