@@ -19,13 +19,13 @@ class UserController extends Controller
     public function index(BaseRequest $request)
     {
         $users = User::orderBy('name')->get();
-        return $this->response200(['users' => $users]);
+        return $this->response200(compact('users'));
     }
 
     public function show(BaseRequest $request)
     {
         $user = User::where('id', $request->id)->with('permissions')->first();
-        return $this->response200(['user' => $user]);
+        return $this->response200(compact('user'));
     }
 
     public function updatePermissions(BaseRequest $request)
