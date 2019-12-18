@@ -30,18 +30,24 @@
             margin: 0;
             text-indent: 40px;
         }
+        span {
+            color: red;
+        }
+        span.b {
+            color: blue;
+        }
     </style>
 </head>
 <body>
-    <h1>{{$obj['institute']['university_name']}}</h1>
-    <h1>{{$obj['institute']['faculty_name']}}</h1>
+    <h1><span>{{$obj['institute']['university_name']}}</span></h1>
+    <h1><span>{{$obj['institute']['faculty_name']}}</span></h1>
     <h1>NR. __________ din __________________</h1>
 
     <h2>ADEVERINȚĂ</h2>
 
     <div>
-        <p>Domnul(a) {{$obj['ticket']['user']['name']}} este student(ă) al(a) Facultății de Automatică și Calculatoare, domeniul / programul de studii ____, anul ______, an universitar {{$obj['institute']['active_year']}}, studii universitare de licență, învățământ cu frecvență, _______________.</p>
-        <p>Studentul(a) nu beneficiază de bursă în semestrul {{$obj['institute']['active_semester']}}, an universitar {{$obj['institute']['active_year']}}.</p>
+        <p>Domnul(a) <span>{{$obj['ticket']['user']['name']}}</span> este student(ă) al(a) Facultății de Automatică și Calculatoare, domeniul / programul de studii <span class="b">____</span>, anul <span class="b">______</span>, an universitar <span>{{$obj['institute']['active_year']}}</span>, studii universitare de <span class="b">licență</span>, <span class="b">învățământ cu frecvență</span>, <span class="b">_______________</span>.</p>
+        <p>Studentul(a) <span class="b">nu beneficiază</span> de bursă în semestrul <span>{{$obj['institute']['active_semester']}}</span>, an universitar <span>{{$obj['institute']['active_year']}}</span>.</p>
         <p>Se eliberează prezenta adeverință la cererea studentului.</p>
     </div>
 
@@ -49,11 +55,11 @@
         <tr>
             <td>
                 <p class="center">Decan,</p>
-                <p class="center">{{$obj['institute']['dean_name']}}</p>
+                <p class="center"><span>{{$obj['institute']['dean_name']}}</span></p>
             </td>
             <td>
                 <p class="center">Secretar șef,</p>
-                <p class="center">{{$obj['institute']['chief_secretary']}}</p>
+                <p class="center"><span>{{$obj['institute']['chief_secretary']}}</span></p>
             </td>
         </tr>
     </table>

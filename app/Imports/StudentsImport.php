@@ -21,6 +21,9 @@ class StudentsImport implements WithHeadingRow, ToCollection
 
     public function collection(Collection $rows)
     {
+        // Ciclu_studii_actual (licenta, master)
+        // Forma_finantare 19/20 (buget, taxa)
+        //
         foreach ($rows as $row) {
 //            dd($row, $this->year);
             if (
