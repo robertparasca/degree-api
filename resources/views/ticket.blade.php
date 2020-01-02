@@ -20,6 +20,10 @@
         .center {
             text-align: center;
         }
+        .center-table-cell {
+            width: 50%;
+            text-align: center;
+        }
         table p {
             margin: 0;
         }
@@ -53,13 +57,13 @@
 
     <table style="width: 100%">
         <tr>
-            <td>
-                <p class="center">Decan,</p>
-                <p class="center"><span>{{$obj['institute']['dean_name']}}</span></p>
+            <td class="center-table-cell">
+                <p>Decan,</p>
+                <p><span>{{$obj['institute']['dean_name']}}</span></p>
             </td>
-            <td>
-                <p class="center">Secretar șef,</p>
-                <p class="center"><span>{{$obj['institute']['chief_secretary']}}</span></p>
+            <td class="center-table-cell">
+                <p>Secretar șef,</p>
+                <p><span>{{$obj['institute']['chief_secretary']}}</span></p>
             </td>
         </tr>
     </table>
