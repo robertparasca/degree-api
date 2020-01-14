@@ -26,7 +26,7 @@ class StudentsImport implements WithHeadingRow, ToCollection
         // Forma_finantare 19/20 (buget, taxa)
         //
         foreach ($rows as $row) {
-            dd($row, $this->year, 123);
+//            dd($row, $this->year, 123);
             if (
                 $row['grupa_i'] &&
                 $row['nrmatricol'] &&
